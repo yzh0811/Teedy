@@ -20,13 +20,13 @@ pipeline {
             } 
         } 
          // Building Docker images 
-        stage('Building image') { 
-            steps { 
-                script { 
-// assume Dockerfile locate at root  
-                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}") 
-                } 
-            } 
+        stage('Building image') {
+            steps {
+                script {
+                    // 使用原生的 docker build 命令并添加 sudo
+                    sh "sudo docker build -t ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ."
+                }
+            }
         } 
 // Uploading Docker images into Docker Hub 
         stage('Upload image') { 
