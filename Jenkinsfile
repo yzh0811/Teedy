@@ -5,16 +5,16 @@ pipeline {
 // Jenkins credentials configuration 
         DOCKER_HUB_CREDENTIALS = credentials('dockerhub_credentials') // Docker Hub credentials ID store in Jenkins 
 // Docker Hub Repository's name 
-DOCKER_IMAGE = 'xx/teedy-app' // your Docker Hub user name and Repository's name 
+        DOCKER_IMAGE = 'yangrobin/teedy' // your Docker Hub user name and Repository's name 
         DOCKER_TAG = "${env.BUILD_NUMBER}" // use build number as tag 
     } 
     stages { 
         stage('Build') { 
             steps { 
                 checkout scmGit( 
-                    branches:[[name: '*/master']],  
+                    branches:[[name: '*/b-12210529']],  
                     extensions: [],  
-                    userRemoteConfigs: [[url: 'https://github.com/xx/Teedy.git']] 
+                    userRemoteConfigs: [[url: 'https://github.com/yzh0811/Teedy.git']] 
                     ) 
                 sh 'mvn -B -DskipTests clean package' 
             } 
