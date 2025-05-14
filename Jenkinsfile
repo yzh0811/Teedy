@@ -3,7 +3,7 @@
     environment {
         DEPLOYMENT_NAME = "hello-node"
         CONTAINER_NAME = "docs"
-        IMAGE_NAME = "sismics/docs:latest"
+        IMAGE_NAME = "yangrobin/docs:latest"
     }
     stages {
         stage('Start Minikube') {
