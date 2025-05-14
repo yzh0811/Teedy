@@ -1,9 +1,9 @@
- pipeline {
+pipeline {
     agent any
     environment {
         DEPLOYMENT_NAME = "hello-node"
         CONTAINER_NAME = "docs"
-        IMAGE_NAME = "yangrobin/docs:latest"
+        IMAGE_NAME = "sismics/docs:latest"
     }
     stages {
         stage('Start Minikube') {
@@ -18,20 +18,21 @@
                 '''
             }
         }
-       stage('Set Image') {
-           steps {
-               sh '''
-                   echo "Setting image for deployment..."
-                   kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
-               '''
-           }
-       }
+
+        stage('Set Image') {
+            steps {
+                sh """
+                    echo "Setting image for deployment..."
+                    kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
+                """
+            }
+        }
 
         stage('Verify') {
             steps {
-                sh 'kubectl rollout status deployment/${DEPLOYMENT_NAME}'
-                sh 'kubectl get pods'
+                sh "kubectl rollout status deployment/${DEPLOYMENT_NAME}"
+                sh "kubectl get pods"
             }
         }
     }
- }
+}
