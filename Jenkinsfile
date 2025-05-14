@@ -18,14 +18,15 @@
                 '''
             }
         }
-        stage('Set Image') {
-            steps {
-                sh '''
-                    echo "Setting image for deployment..."
-                    kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
-                '''
-            }
-        }
+       stage('Set Image') {
+           steps {
+               sh '''
+                   echo "Setting image for deployment..."
+                   kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
+               '''
+           }
+       }
+
         stage('Verify') {
             steps {
                 sh 'kubectl rollout status deployment/${DEPLOYMENT_NAME}'
