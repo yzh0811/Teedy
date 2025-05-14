@@ -3,7 +3,7 @@
     environment {
         DEPLOYMENT_NAME = "hello-node"
         CONTAINER_NAME = "hello-node"
-        IMAGE_NAME = "yangrobin/latest"
+        IMAGE_NAME = "sismics/docs:latest"
     }
     stages {
         stage('Start Minikube') {
@@ -22,7 +22,7 @@
             steps {
                 sh '''
                     echo "Setting image for deployment..."
-                    kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_N
+                    kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
                 '''
             }
         }
