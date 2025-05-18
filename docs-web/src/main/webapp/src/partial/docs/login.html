@@ -74,6 +74,16 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <hr>
+              <p>{{ 'login.no_account' | translate }}</p>
+              <button type="button" class="btn btn-default" ng-click="goToRegister()">
+                <span class="fas fa-user-plus"></span> {{ 'login.register' | translate }}
+              </button>
+            </div>
+          </div>
+
           <p class="text-center" ng-if="app.guest_login">&nbsp;</p>
 
           <button type="submit" class="btn btn-default btn-block" ng-if="app.guest_login" ng-click="loginAsGuest()">

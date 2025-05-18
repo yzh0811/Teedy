@@ -33,12 +33,24 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObjectBuilder;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.StreamingOutput;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -51,6 +63,9 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
 
 /**
  * File REST resources.
@@ -807,6 +822,73 @@ public class FileResource extends BaseResource {
             if (!aclDao.checkPermission(file.getDocumentId(), PermType.READ, getTargetIdList(shareId))) {
                 throw new ForbiddenClientException();
             }
+        }
+    }
+
+    /**
+     * Update file data.
+     *
+     * @api {post} /file/:id/data Update file data
+     * @apiName PostFileData
+     * @apiGroup File
+     * @apiParam {String} id File ID
+     * @apiParam {String} data Base64 encoded file data
+     * @apiSuccess {String} status Status OK
+     * @apiError (client) ForbiddenError Access denied
+     * @apiError (client) ValidationError Validation error
+     * @apiError (client) NotFound File not found
+     * @apiError (server) FileError Error updating file
+     * @apiPermission user
+     * @apiVersion 1.5.0
+     *
+     * @param id File ID
+     * @param data Base64 encoded file data
+     * @return Response
+     */
+    @POST
+    @Path("{id: [a-z0-9\\-]+}/data")
+    public Response updateData(
+            @PathParam("id") String id,
+            @FormParam("data") String data) {
+        if (!authenticate()) {
+            throw new ForbiddenClientException();
+        }
+
+        // Validate input data
+        ValidationUtil.validateRequired(data, "data");
+
+        // Get the file
+        File file = findFile(id, null);
+
+        try {
+            // Decode base64 data
+            byte[] fileData = java.util.Base64.getDecoder().decode(data);
+
+            // Get the user
+            UserDao userDao = new UserDao();
+            User user = userDao.getById(principal.getId());
+
+            // Save the file
+            Cipher cipher = EncryptionUtil.getEncryptionCipher(user.getPrivateKey());
+            java.nio.file.Path path = DirectoryUtil.getStorageDirectory().resolve(file.getId());
+            try (InputStream inputStream = new ByteArrayInputStream(fileData)) {
+                Files.copy(new CipherInputStream(inputStream, cipher), path, StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            // Start processing the file
+            FileUtil.startProcessingFile(id);
+            FileUpdatedAsyncEvent event = new FileUpdatedAsyncEvent();
+            event.setUserId(principal.getId());
+            event.setFileId(file.getId());
+            event.setUnencryptedFile(path);
+            ThreadLocalContext.get().addAsyncEvent(event);
+
+            // Always return OK
+            JsonObjectBuilder response = Json.createObjectBuilder()
+                    .add("status", "ok");
+            return Response.ok().entity(response.build()).build();
+        } catch (Exception e) {
+            throw new ServerException("FileError", "Error updating file", e);
         }
     }
 }

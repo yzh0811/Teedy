@@ -9,7 +9,9 @@ angular.module('docs').controller('FileModalView', function ($uibModalInstance, 
     _.each(files, function (value) {
       if (value.id === $stateParams.fileId) {
         $scope.file = value;
-        $scope.trustedFileUrl = $sce.trustAsResourceUrl('../api/file/' + $stateParams.fileId + '/data');
+        var timestamp = new Date().getTime();
+        $scope.trustedFileUrl = $sce.trustAsResourceUrl('../api/file/' + $stateParams.fileId + '/data?t=' + timestamp);
+        $scope.fileUrl = '../api/file/' + $stateParams.fileId + '/data?t=' + timestamp;
       }
     });
   };
