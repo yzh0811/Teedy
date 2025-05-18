@@ -1,0 +1,31 @@
+{
+    "title": "Request Registration",
+    "username": "Username",
+    "username.required": "Username is required",
+    "username.length": "Username must be between 3 and 50 characters",
+    "password": "Password",
+    "password.required": "Password is required",
+    "password.length": "Password must be between 8 and 50 characters",
+    "email": "Email",
+    "email.required": "Email is required",
+    "email.invalid": "Invalid email address",
+    "submit": "Submit Request",
+    "success": "Registration request submitted successfully. Please wait for admin approval.",
+    "error": "An error occurred while submitting the registration request",
+    "error.username.exists": "Username already exists",
+    "requests": {
+        "title": "Registration Requests",
+        "username": "Username",
+        "email": "Email",
+        "create_date": "Request Date",
+        "actions": "Actions",
+        "approve": "Approve",
+        "reject": "Reject",
+        "empty": "No pending registration requests",
+        "success.approve": "Registration request approved successfully",
+        "success.reject": "Registration request rejected successfully",
+        "error.load": "Error loading registration requests",
+        "error.process": "Error processing registration request",
+        "error.not_found": "Registration request not found"
+    }
+} 

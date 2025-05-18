@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ 'document.view.content.image_editor' | translate }}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-9">
+              <div class="img-container">
+                <img id="image" ng-src="{{ imageUrl }}" alt="Image to edit">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-click="rotate(-90)">
+                  <i class="fas fa-undo"></i> {{ 'document.view.content.rotate_left' | translate }}
+                </button>
+                <button type="button" class="btn btn-default" ng-click="rotate(90)">
+                  <i class="fas fa-redo"></i> {{ 'document.view.content.rotate_right' | translate }}
+                </button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-click="setDragMode('crop')">
+                  <i class="fas fa-crop"></i> {{ 'document.view.content.crop' | translate }}
+                </button>
+                <button type="button" class="btn btn-default" ng-click="setDragMode('move')">
+                  <i class="fas fa-arrows-alt"></i> {{ 'document.view.content.move' | translate }}
+                </button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" ng-click="save()">
+                  <i class="fas fa-save"></i> {{ 'document.view.content.save' | translate }}
+                </button>
+                <button type="button" class="btn btn-default" ng-click="cancel()">
+                  <i class="fas fa-times"></i> {{ 'document.view.content.cancel' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

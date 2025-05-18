@@ -14,7 +14,9 @@
     "password_lost_sent_title": "Password reset email sent",
     "password_lost_sent_message": "An email has been sent to <strong>{{ username }}</strong> to reset your password",
     "password_lost_error_title": "Password reset error",
-    "password_lost_error_message": "Unable to send a password reset email, please contact your administrator for a manual reset"
+    "password_lost_error_message": "Unable to send a password reset email, please contact your administrator for a manual reset",
+    "no_account": "Don't have an account?",
+    "register": "Request Registration"
   },
   "passwordlost": {
     "title": "Password lost",
@@ -266,14 +268,15 @@
     }
   },
   "settings": {
-    "menu_personal_settings": "Personal settings",
-    "menu_user_account": "User account",
-    "menu_two_factor_auth": "Two-factor authentication",
-    "menu_opened_sessions": "Opened sessions",
-    "menu_file_importer": "Bulk file importer",
-    "menu_general_settings": "General settings",
-    "menu_workflow": "Workflow",
+    "menu_personal_settings": "Personal Settings",
+    "menu_user_account": "User Account",
+    "menu_two_factor_auth": "Two-Factor Authentication",
+    "menu_opened_sessions": "Opened Sessions",
+    "menu_file_importer": "File Importer",
+    "menu_general_settings": "General Settings",
+    "menu_workflow": "Workflows",
     "menu_users": "Users",
+    "menu_registration": "Registration Requests",
     "menu_groups": "Groups",
     "menu_vocabularies": "Vocabularies",
     "menu_configuration": "Configuration",
@@ -640,5 +643,45 @@
   "loading": "Loading...",
   "send": "Send",
   "enabled": "Enabled",
-  "disabled": "Disabled"
+  "disabled": "Disabled",
+  "registration": {
+    "title": "Registration Request",
+    "username": "Username",
+    "username.required": "Username is required",
+    "username.length": "Username must be between 3 and 50 characters",
+    "password": "Password",
+    "password.required": "Password is required",
+    "password.length": "Password must be between 8 and 50 characters",
+    "email": "Email",
+    "email.required": "Email is required",
+    "email.invalid": "Please enter a valid email address",
+    "submit": "Submit Registration Request",
+    "success": {
+      "title": "Registration Request Submitted",
+      "message": "Your registration request has been submitted. An administrator will review your request and contact you via email."
+    },
+    "error": {
+      "title": "Registration Error",
+      "message": "An error occurred while submitting your registration request. Please try again later."
+    },
+    "requests": {
+      "title": "Registration Requests",
+      "username": "Username",
+      "email": "Email",
+      "create_date": "Request Date",
+      "actions": "Actions",
+      "approve": "Approve",
+      "reject": "Reject",
+      "empty": "No pending registration requests",
+      "success": {
+        "approve": "Registration request approved",
+        "reject": "Registration request rejected"
+      },
+      "error": {
+        "load": "Error loading registration requests",
+        "process": "Error processing registration request",
+        "not_found": "Registration request not found"
+      }
+    }
+  }
 }

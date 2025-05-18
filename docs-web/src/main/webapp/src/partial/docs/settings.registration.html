@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ 'registration.requests.title' | translate }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ 'registration.requests.username' | translate }}</th>
+                        <th>{{ 'registration.requests.email' | translate }}</th>
+                        <th>{{ 'registration.requests.create_date' | translate }}</th>
+                        <th>{{ 'registration.requests.actions' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="request in requests">
+                        <td>{{ request.username }}</td>
+                        <td>{{ request.email }}</td>
+                        <td>{{ request.create_date | date:'medium' }}</td>
+                        <td>
+                            <button class="btn btn-success btn-sm" ng-click="processRequest(request.id, 'approve')">
+                                {{ 'registration.requests.approve' | translate }}
+                            </button>
+                            <button class="btn btn-danger btn-sm" ng-click="processRequest(request.id, 'reject')">
+                                {{ 'registration.requests.reject' | translate }}
+                            </button>
+                        </td>
+                    </tr>
+                    <tr ng-if="requests.length === 0">
+                        <td colspan="4" class="text-center">
+                            {{ 'registration.requests.empty' | translate }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 

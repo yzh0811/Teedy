@@ -1,0 +1,14 @@
+{
+    "title": "Login",
+    "username": "Username",
+    "username.required": "Username is required",
+    "password": "Password",
+    "password.required": "Password is required",
+    "code": "Authentication Code",
+    "remember": "Remember me",
+    "submit": "Login",
+    "register": "Request Registration",
+    "no_account": "Don't have an account?",
+    "error": "Invalid username or password",
+    "error.totp": "Invalid authentication code"
+} 

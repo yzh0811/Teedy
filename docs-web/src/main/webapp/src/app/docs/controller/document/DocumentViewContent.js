@@ -8,6 +8,13 @@ angular.module('docs').controller('DocumentViewContent', function ($scope, $root
   $scope.openedFile = undefined;
 
   /**
+   * Check if a file is an image.
+   */
+  $scope.isImage = function(file) {
+    return file && file.mimetype && file.mimetype.startsWith('image/');
+  };
+
+  /**
    * Watch for display mode change.
    */
   $scope.$watch('displayMode', function (next) {
@@ -49,6 +56,12 @@ angular.module('docs').controller('DocumentViewContent', function ($scope, $root
     });
   };
   $scope.loadFiles();
+
+  // Listen for document reload event
+  $scope.$on('document:reload', function() {
+    console.log('Received document:reload event, reloading files');
+    $scope.loadFiles();
+  });
 
   /**
    * Navigate to the selected file.
@@ -223,5 +236,16 @@ angular.module('docs').controller('DocumentViewContent', function ($scope, $root
         }
       }
     })
+  };
+
+  /**
+   * Open image editor.
+   */
+  $scope.openImageEditor = function(file) {
+    console.log('Opening image editor for file:', file);
+    $state.go('image-editor', {
+      id: $stateParams.id,
+      fileId: file.id
+    });
   };
 });

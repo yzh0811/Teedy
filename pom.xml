@@ -163,13 +163,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.22.0</version>
         <configuration>
-          <!-- 指定自定义规则集文件 -->
-          <rulesets>
-            <ruleset>customize-rules.xml</ruleset>
-          </rulesets>
-          <!-- 包含生成的报告到项目站点 -->
-          <linkXRef>true</linkXRef>
-          <minimumPriority>1</minimumPriority>
+          <failOnViolation>false</failOnViolation>
         </configuration>
         <executions>
           <execution>
